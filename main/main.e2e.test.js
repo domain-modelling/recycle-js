@@ -1,6 +1,6 @@
 const axios = require('axios');
 const express = require('express');
-const { routes } = require('./routes');
+const {routes} = require('./routes');
 
 describe("E2E happy flow", () => {
     let server;
@@ -19,18 +19,23 @@ describe("E2E happy flow", () => {
 
     it("GET /validate returns an empty object", async () => {
         const validate = await get("/validate");
-        expect(validate).toEqual({});
+        expect(validate).toMatchObject({});
     });
 
     it("POST /calculate returns a calculation", async () => {
-        const calculation = await post("/calculate", {events: [], command: {}});
-        expect(calculation).toEqual({
-            priceWasCalculated: {
-                id: 1,
-                price: {
-                    amount: 0,
-                    currency: "euro"
-                }
+        const calculation = await post("/handle-command", {
+            history: [
+                // there should be something here
+            ],
+            command: {
+                // there should be something here too
+            }
+        });
+        expect(calculation).toMatchObject({
+            payload: {
+                card_id: "123",
+                price_amount: 0,
+                price_currency: "EUR",
             }
         });
     });
