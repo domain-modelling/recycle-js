@@ -22,7 +22,7 @@ describe("E2E happy flow", () => {
         expect(validate).toMatchObject({});
     });
 
-    it("POST /calculate returns a calculation", async () => {
+    it("POST /calculate without history", async () => {
         const calculation = await post("/handle-command", {
             history: [
                 // there should be something here
@@ -31,14 +31,19 @@ describe("E2E happy flow", () => {
                 // there should be something here too
             }
         });
-        expect(calculation).toMatchObject({
-            payload: {
-                card_id: "123",
-                price_amount: 0,
-                price_currency: "EUR",
-            }
-        });
+        expect(calculation).toMatchObject(priceWasCalculated("123", 0));
     });
+
+    function priceWasCalculated(card_id, price_amount) {
+        return {
+            type: "PriceWasCalculated",
+            payload: {
+                card_id,
+                price_amount,
+                price_currency: "EUR",
+            },
+        };
+    }
 
     const get = async (url) => {
         const result = await client.get(url);
