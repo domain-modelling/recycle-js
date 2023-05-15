@@ -2,6 +2,14 @@
 # Recycle Javascript Client
 This is the javascript client to use when participating in the Domain Modeling hands-on.
 
+# Codespaces
+
+1. Wait until the Codespace is completely started.
+1. Run `npm start` in the terminal.
+1. Go into the `PORTS` tab in the bottom half of your screen. Change the visibility of the public api port from Private to Visible
+(Right click -> Port Visibility -> Public).
+1. Now you can copy the Local Address and use that in the workshop.
+
 # Getting started
 ## Installing dependencies
 run `npm install` or `yarn`
