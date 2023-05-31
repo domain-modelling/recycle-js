@@ -1,14 +1,10 @@
 const {Router} = require('express');
 const bodyParser = require('body-parser');
+const uuid = require('uuid');
+const PriceCalculator = require('./priceCalculator');
 
 const routes = Router();
 routes.use(bodyParser.json());
-
-class PriceCalculator {
-    calculatePrice(cardId) {
-        return 0;
-    }
-}
 
 routes.get("/", (request, response) => {
     return response.json({status: "ok"});
@@ -19,15 +15,19 @@ routes.get("/validate", (request, response) => {
 });
 
 routes.post("/handle-command", (request, response) => {
-    const { history, command } = request.body
-    const priceCalculator = new PriceCalculator()
+    const {history, command} = request.body;
+
+    // If you have no inspiration to start implementing, uncomment this part:
+    // const price = new PriceCalculator(history).calculatePrice(command.payload.card_id);
+    const price = 1;
+
     const answer = {
-        event_id: "foo",
+        event_id: uuid.v1(),
         created_at: new Date().toISOString(),
         type: "PriceWasCalculated",
         payload: {
-            card_id: "123",
-            price_amount: priceCalculator.calculatePrice("123"),
+            card_id: command.payload.card_id,
+            price_amount: price,
             price_currency: "EUR",
         },
     };
