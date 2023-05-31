@@ -6,16 +6,16 @@ class PriceCalculator {
     #handle(event) {
         const payload = event.payload;
         switch (event.type) {
-            case "IdCardRegistered":
+            case 'IdCardRegistered':
                 console.log(`registered card ${payload.card_id}`);
                 break;
-            case "IdCardScannedAtEntranceGate":
+            case 'IdCardScannedAtEntranceGate':
                 console.log(`card ${payload.card_id} scanned at entrance gate`);
                 break;
-            case "FractionWasDropped":
+            case 'FractionWasDropped':
                 console.log(`card ${payload.card_id} dropped some waste`)
                 break;
-            case "IdCardScannedAtExitGate":
+            case 'IdCardScannedAtExitGate':
                 console.log(`card ${payload.card_id} scanned at exit gate`)
                 break;
         }

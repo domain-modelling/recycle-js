@@ -2,7 +2,7 @@ const axios = require('axios');
 const express = require('express');
 const {routes} = require('./routes');
 
-describe("E2E happy flow", () => {
+describe('E2E happy flow', () => {
     let server;
     let client;
 
@@ -17,21 +17,17 @@ describe("E2E happy flow", () => {
         server.close(done);
     });
 
-    it("validate", async () => {
-        const validate = await get("/validate");
+    it('validate', async () => {
+        const validate = await get('/validate');
         expect(validate).toMatchObject({});
     });
 
-    it("No fractions delivered", async () => {
-        const calculation = await post("/handle-command", {
-            history: [
-                idCardRegistered('123'),
-                idCardScannedAtEntranceGate("123"),
-                idCardScannedAtExitGate("123")
-            ],
+    it('No fractions delivered', async () => {
+        const calculation = await post('/handle-command', {
+            history: [],
             command: calculatePrice('123'),
         });
-        expect(calculation).toMatchObject(priceWasCalculated("123", 0));
+        expect(calculation).toMatchObject(priceWasCalculated('123', 0));
     });
 
     const get = async (url) => {
@@ -52,44 +48,13 @@ function calculatePrice(cardId) {
         payload: {card_id: cardId},
     };
 }
-
-function idCardRegistered(cardId, personId = "person_1", address = "an address",
-    street = "a street") {
-    return {
-        type: 'IdCardRegistered',
-        payload: {
-            card_id: cardId,
-            person_id: personId,
-            address: address,
-            street: street,
-        },
-    };
-}
-
-function idCardScannedAtEntranceGate(cardId, date = "2023-01-01") {
-    return {
-        type: 'IdCardScannedAtEntranceGate',
-        payload: {
-            card_id: cardId,
-            date: date
-        },
-    };
-}
-
-function idCardScannedAtExitGate(cardId) {
-    return {
-        type: 'IdCardScannedAtExitGate',
-        payload: {card_id: cardId},
-    };
-}
-
 function priceWasCalculated(cardId, price = 0) {
     return {
-        type: "PriceWasCalculated",
+        type: 'PriceWasCalculated',
         payload: {
             card_id: cardId,
             price_amount: price,
-            price_currency: "EUR",
+            price_currency: 'EUR',
         },
     };
 }
