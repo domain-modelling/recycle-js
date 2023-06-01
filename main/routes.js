@@ -21,8 +21,8 @@ routes.post('/handle-command', (request, response) => {
     const {history, command} = request.body;
 
     // If you have no inspiration to start implementing, uncomment this part:
-    const price = new PriceCalculator(history).calculatePrice(command.payload.card_id);
-    // const price = 1;
+    // const price = new PriceCalculator(history).calculatePrice(command.payload.card_id);
+    const price = 1;
 
     const answer = {
         event_id: uuid.v1(),
